@@ -11,6 +11,9 @@ export class View extends Module{
     private _renderer: THREE.WebGLRenderer;
     
     private _cube: THREE.Mesh;
+    private _button: HTMLButtonElement;
+
+    private _script:HTMLScriptElement;
 
     constructor(view:HTMLElement, uuid:string){
         super(view, uuid);
@@ -21,6 +24,9 @@ export class View extends Module{
         this._scene = new THREE.Scene();
         this._camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
         this._renderer = new THREE.WebGLRenderer();
+
+        this._button = document.body.querySelector('button');
+        this._script = null;
     }
 
     private animate():void{
@@ -40,6 +46,21 @@ export class View extends Module{
         this._camera.position.z = 5;
     }
 
+    private handleButton:EventListener = ()=>{
+        
+        if(this._script){
+            this._script.remove();
+            this._script = null;
+        }
+
+        const newScript = document.createElement('script');
+        const sourceCode = 'print("Hello world")';
+        newScript.setAttribute('type', 'application/lua');
+        newScript.innerHTML = sourceCode;
+        document.body.appendChild(newScript);
+        this._script = newScript;
+    }
+
     afterMount(){
         this._renderer.setSize( window.innerWidth, window.innerHeight );
 
@@ -48,6 +69,8 @@ export class View extends Module{
 
         this.makeBox();
         this.animate();
+
+        this._button.addEventListener('click', this.handleButton);
     }
 
     beforeDestroy(){
