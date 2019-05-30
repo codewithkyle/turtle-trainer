@@ -179,6 +179,7 @@
         </script>
 
         <link rel="stylesheet" href="assets/styles/homepage.css">
+        <link rel="stylesheet" href="assets/styles/editor.css">
     </head>
     <body>
         <!-- Runtime modules -->
@@ -197,7 +198,10 @@
                 <div class="c-transition_secondary"></div>
             </div>
             <main id="homepage" role="main" class="js-pjax" data-module="View">
-                <button>Print Console Log</button>
+                <section class="js-canvas-wrapper">
+                    <canvas class="js-canvas"></canvas>
+                </section>
+                <section class="js-gui-wrapper c-editor"></section>
             </main>
             <script src="assets/scripts/application.js"></script>
     </body>

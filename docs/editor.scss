@@ -1,0 +1,20 @@
+@import 'settings';
+@import 'mixins';
+
+.c-editor{
+    background-color: $editor-background;
+    border-left: 1px solid $editor-line-numbers;
+    padding: 32px;
+    padding-left: 48px;
+
+    &::before{
+        content: "";
+        display: inline-block;
+        width: 1px;
+        height: 100%;
+        background-color: $editor-line-numbers;
+        position: absolute;
+        top: 0;
+        left: 46px;
+    }
+}

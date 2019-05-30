@@ -11,9 +11,9 @@ export class View extends Module{
     private _renderer: THREE.WebGLRenderer;
     
     private _cube: THREE.Mesh;
-    private _button: HTMLButtonElement;
 
-    private _script:HTMLScriptElement;
+    private _canvasWrapper:HTMLElement;
+    private _editorWrapper:HTMLElement;
 
     constructor(view:HTMLElement, uuid:string){
         super(view, uuid);
@@ -22,14 +22,33 @@ export class View extends Module{
         }
 
         this._scene = new THREE.Scene();
-        this._camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-        this._renderer = new THREE.WebGLRenderer();
+        this._camera = new THREE.PerspectiveCamera( 75, 2, 0.1, 1000 );
+        this._renderer = new THREE.WebGLRenderer({canvas: this.view.querySelector('.js-canvas')});
 
-        this._button = document.body.querySelector('button');
-        this._script = null;
+        this._canvasWrapper = this.view.querySelector('.js-canvas-wrapper');
+        this._editorWrapper = this.view.querySelector('.js-gui-wrapper');
+    }
+
+    private resizeCanvas():void{
+        const canvas = this._renderer.domElement;
+
+        // look up the size the canvas is being displayed
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+
+        // adjust displayBuffer size to match
+        if (canvas.width !== width || canvas.height !== height) {
+
+            // you must pass false here or three.js sadly fights the browser
+            this._renderer.setSize(width, height, false);
+            this._camera.aspect = width / height;
+            this._camera.updateProjectionMatrix();
+        }
     }
 
     private animate():void{
+        this.resizeCanvas();
+
         this._cube.rotation.x += 0.01;
         this._cube.rotation.y += 0.01;
 
@@ -46,31 +65,9 @@ export class View extends Module{
         this._camera.position.z = 5;
     }
 
-    private handleButton:EventListener = ()=>{
-        
-        if(this._script){
-            this._script.remove();
-            this._script = null;
-        }
-
-        const newScript = document.createElement('script');
-        const sourceCode = 'print("Hello world")';
-        newScript.setAttribute('type', 'application/lua');
-        newScript.innerHTML = sourceCode;
-        document.body.appendChild(newScript);
-        this._script = newScript;
-    }
-
     afterMount(){
-        this._renderer.setSize( window.innerWidth, window.innerHeight );
-
-        const article = document.body.querySelector('#homepage');
-        article.appendChild( this._renderer.domElement );
-
         this.makeBox();
         this.animate();
-
-        this._button.addEventListener('click', this.handleButton);
     }
 
     beforeDestroy(){

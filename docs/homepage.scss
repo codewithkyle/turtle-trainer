@@ -2,23 +2,20 @@
 @import 'mixins';
 
 #homepage{
-    canvas{
-        width: 1200px;
-        max-width: 100vw;
-        display: block;
-        margin: 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+
+    section{
+        width: 50%;
+        height: 100%;
     }
 
-    button{
-        z-index: 999;
-        background-color: $white;
-        color: $slate;
-        padding: 0 16px;
-        height: 36px;
-        line-height: 36px;
-        position: absolute;
-        top: 0;
-        right: 0;
+    canvas{
+        width: 100%;
+        height: 100%;
     }
 }
 

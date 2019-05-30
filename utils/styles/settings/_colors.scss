@@ -64,6 +64,9 @@ $blue-grey-10:   #102a43;
 
 // Brand Palette
 // =============================================================================
+$editor-background: #293237;
+$editor-line-numbers: #303b41;
+$editor-font-color: #b7ccd5;
 
 // Action Palette
 // =============================================================================
@@ -106,7 +109,7 @@ $secondary-active: $secondary-1;
 
 // Font Palette
 // =============================================================================
-$font-base:     $steel;
+$font-base:     $editor-font-color;
 $font-alt:      $white;
 
 // Selection
@@ -116,7 +119,7 @@ $selection-background-color: $snow;
 
 // Background Colors
 // =============================================================================
-$base-background-color:         $white;
+$base-background-color:         $editor-background;
 $secondary-background-color:    $snow;
 
 // Alert Colors

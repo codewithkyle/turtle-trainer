@@ -27,30 +27,29 @@ var View = (function (_super) {
     __extends(View, _super);
     function View(view, uuid) {
         var _this = _super.call(this, view, uuid) || this;
-        _this.handleButton = function () {
-            if (_this._script) {
-                _this._script.remove();
-                _this._script = null;
-            }
-            var newScript = document.createElement('script');
-            var sourceCode = 'print("Hello world")';
-            newScript.setAttribute('type', 'application/lua');
-            newScript.innerHTML = sourceCode;
-            document.body.appendChild(newScript);
-            _this._script = newScript;
-        };
         if (Env_1.Env.isDebug) {
             console.log('%c[Module Manager] ' + ("%ccreated new %c" + View.index + " %cmodule with an ID of %c" + uuid), 'color:#4882fd', 'color:#eee', 'color:#48eefd', 'color:#eee', 'color:#48eefd');
         }
         _this._scene = new THREE.Scene();
-        _this._camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        _this._renderer = new THREE.WebGLRenderer();
-        _this._button = document.body.querySelector('button');
-        _this._script = null;
+        _this._camera = new THREE.PerspectiveCamera(75, 2, 0.1, 1000);
+        _this._renderer = new THREE.WebGLRenderer({ canvas: _this.view.querySelector('.js-canvas') });
+        _this._canvasWrapper = _this.view.querySelector('.js-canvas-wrapper');
+        _this._editorWrapper = _this.view.querySelector('.js-gui-wrapper');
         return _this;
     }
+    View.prototype.resizeCanvas = function () {
+        var canvas = this._renderer.domElement;
+        var width = canvas.clientWidth;
+        var height = canvas.clientHeight;
+        if (canvas.width !== width || canvas.height !== height) {
+            this._renderer.setSize(width, height, false);
+            this._camera.aspect = width / height;
+            this._camera.updateProjectionMatrix();
+        }
+    };
     View.prototype.animate = function () {
         var _this = this;
+        this.resizeCanvas();
         this._cube.rotation.x += 0.01;
         this._cube.rotation.y += 0.01;
         this._renderer.render(this._scene, this._camera);
@@ -64,12 +63,8 @@ var View = (function (_super) {
         this._camera.position.z = 5;
     };
     View.prototype.afterMount = function () {
-        this._renderer.setSize(window.innerWidth, window.innerHeight);
-        var article = document.body.querySelector('#homepage');
-        article.appendChild(this._renderer.domElement);
         this.makeBox();
         this.animate();
-        this._button.addEventListener('click', this.handleButton);
     };
     View.prototype.beforeDestroy = function () {
     };
