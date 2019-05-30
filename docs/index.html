@@ -14,7 +14,7 @@
         <!-- <link rel="manifest" href="manifest.json"> -->
 
         <title>The Turtle Trainer</title>
-        <meta name="description" content="A ComputerCraft simulation used to develope Turtles in a Lua VM on the web."/>
+        <meta name="description" content="A visual Lua teach tool, with friends!."/>
 
         <link rel="stylesheet" href="assets/styles/main.css">
         <link rel="stylesheet" href="assets/styles/fonts.css">
@@ -179,7 +179,9 @@
         </script>
 
         <link rel="stylesheet" href="assets/styles/homepage.css">
-        <link rel="stylesheet" href="assets/styles/editor.css">
+        <link rel="stylesheet" href="assets/styles/input.css">
+        <link rel="stylesheet" href="assets/styles/heading.css">
+        <link rel="stylesheet" href="assets/styles/button.css">
     </head>
     <body>
         <!-- Runtime modules -->
@@ -189,19 +191,34 @@
         <script src="assets/scripts/npm.pageworks.js" async="async"></script>
         <script src="assets/scripts/npm.three.js" async="async"></script>
         <script src="assets/scripts/fengari-web.js" async="async"></script>
-
-        <!-- Our modules -->
-        <script src="assets/scripts/view.js" async="async"></script>
+        <script src="assets/scripts/inputmanager.js" async="async"></script>
 
             <div class="c-transition">
                 <div class="c-transition_primary"></div>
                 <div class="c-transition_secondary"></div>
             </div>
-            <main id="homepage" role="main" class="js-pjax" data-module="View">
-                <section class="js-canvas-wrapper">
-                    <canvas class="js-canvas"></canvas>
-                </section>
-                <section class="js-gui-wrapper c-editor"></section>
+            <main id="homepage" role="main" class="js-pjax">
+                <form class="js-startup-form o-form">
+                    <div class="o-form_row u-text-center u-padding-bottom-x2">
+                        <h1 class="g-heading -h2">Turtle Trainer</h1>
+                        <p>Enter a token or create a new room.</p>
+                    </div>
+                    <div class="o-form_row">
+                        <div class="g-input">
+                            <input class="js-input" type="text" name="token" id="token">
+                            <label for="token">Enter Token</label>
+                            <error class="js-error"></error>
+                        </div>
+                    </div>
+                    <div class="o-form_row">
+                        <div id="input-split">
+                            <span>OR</span>
+                        </div>
+                    </div>
+                    <div class="o-form_row">
+                        <button class="js-create-room-button g-button -outline -alt -full -blue">Create A Room</button>
+                    </div>
+                </form>
             </main>
             <script src="assets/scripts/application.js"></script>
     </body>

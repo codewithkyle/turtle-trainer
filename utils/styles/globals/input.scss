@@ -1,0 +1,112 @@
+@import 'settings';
+@import 'mixins';
+
+.g-input{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+    input{
+        width: 100%;
+        height: 56px;
+        padding: 14px 16px 14px;
+        border: 1px;
+        border-style: solid;
+        border-color: $cool-grey-2;
+        transition: all 150ms $ease;
+        margin-bottom: 0;
+
+        @include hover{
+            border-color: $cool-grey-3;
+    
+            & + label{
+                color: $cool-grey-3;
+            }
+        }
+
+        &.has-value{
+            border-color: $cool-grey-3;
+
+            & + label{
+                font-size: 12px;
+                background-color: $white;
+                padding: 0 4px;
+                top: 0;
+                left: 8px;
+                transform: translateY(-4px);
+                color: $cool-grey-3;
+            }
+        }
+    
+        &.is-invalid{
+            border-color: $error !important;
+            margin-bottom: 32px;
+
+            & + label{
+                font-size: 12px;
+                background-color: $white;
+                color: $error !important;
+                padding: 0 4px;
+                top: 0;
+                left: 8px;
+                transform: translateY(-4px);
+            }
+            
+            & ~ error{
+                opacity: 1;
+                transition: all 150ms 75ms $ease-in;
+            }
+    
+            @include hover{
+                border-color: $error-5 !important;
+
+                & + label{
+                    color: $error-5 !important;
+                }
+            }
+        }
+    
+        &:focus{
+            border-color: $primary !important;
+    
+            & + label{
+                font-size: 12px;
+                background-color: $white;
+                color: $primary !important;
+                padding: 0 4px;
+                top: 0;
+                left: 8px;
+                transform: translateY(-4px);
+            }
+        }
+    }
+
+    label{
+        position: absolute;
+        top: 20px;
+        left: 16px;
+        font-size: 1rem;
+        padding: 0;
+        background-color: transparent;
+        color: $cool-grey-2;
+        transition: all 150ms $ease;
+        line-height: 1;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    error{
+        position: absolute;
+        bottom: 6px;
+        left: 8px;
+        font-size: 14px;
+        user-select: none;
+        pointer-events: none;
+        color: $error;
+        opacity: 0;
+        transition: all 75ms $ease-sharp;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        line-height: 1;
+    }
+}
