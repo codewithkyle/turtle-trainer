@@ -16,6 +16,7 @@
         border-radius: 4px;
         display: grid;
         width: 460px;
+        max-width: 100%;
         grid-template-rows: 1fr;
         gap: $unit;
         box-shadow: $elevation-1;
