@@ -39,13 +39,13 @@
         }
     
         &.is-invalid{
-            border-color: $error !important;
+            border-color: $error;
             margin-bottom: 32px;
 
             & + label{
                 font-size: 12px;
                 background-color: $white;
-                color: $error !important;
+                color: $error;
                 padding: 0 4px;
                 top: 0;
                 left: 8px;
@@ -58,10 +58,10 @@
             }
     
             @include hover{
-                border-color: $error-5 !important;
+                border-color: $error-5;
 
                 & + label{
-                    color: $error-5 !important;
+                    color: $error-5;
                 }
             }
         }

@@ -193,21 +193,27 @@
         <script src="assets/scripts/fengari-web.js" async="async"></script>
         <script src="assets/scripts/inputmanager.js" async="async"></script>
 
+        <!-- Modules -->
+        <script src="assets/scripts/login.js" async="async"></script>
+
             <div class="c-transition">
                 <div class="c-transition_primary"></div>
                 <div class="c-transition_secondary"></div>
             </div>
             <main id="homepage" role="main" class="js-pjax">
-                <form class="js-startup-form o-form">
+                <form class="js-startup-form o-form" data-module="Login">
                     <div class="o-form_row u-text-center u-padding-bottom-x2">
                         <h1 class="g-heading -h2">Turtle Trainer</h1>
                         <p>Enter a token or create a new room.</p>
                     </div>
                     <div class="o-form_row">
                         <div class="g-input">
-                            <input class="js-input" type="text" name="token" id="token">
+                            <input class="js-input" type="text" name="token" id="token" style="padding-right:56px;">
                             <label for="token">Enter Token</label>
                             <error class="js-error"></error>
+                            <button type="submit" id="submit-button" class="js-submit-button">
+                                <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="sign-in-alt" class="svg-inline--fa fa-sign-in-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 217.1c0-8.8 7.2-16 16-16h144v-93.9c0-7.1 8.6-10.7 13.6-5.7l141.6 143.1c6.3 6.3 6.3 16.4 0 22.7L205.6 410.4c-5 5-13.6 1.5-13.6-5.7v-93.9H48c-8.8 0-16-7.2-16-16v-77.7m-32 0v77.7c0 26.5 21.5 48 48 48h112v61.9c0 35.5 43 53.5 68.2 28.3l141.7-143c18.8-18.8 18.8-49.2 0-68L228.2 78.9c-25.1-25.1-68.2-7.3-68.2 28.3v61.9H48c-26.5 0-48 21.6-48 48zM512 400V112c0-26.5-21.5-48-48-48H332c-6.6 0-12 5.4-12 12v8c0 6.6 5.4 12 12 12h132c8.8 0 16 7.2 16 16v288c0 8.8-7.2 16-16 16H332c-6.6 0-12 5.4-12 12v8c0 6.6 5.4 12 12 12h132c26.5 0 48-21.5 48-48z"></path></svg>
+                            </button>
                         </div>
                     </div>
                     <div class="o-form_row">

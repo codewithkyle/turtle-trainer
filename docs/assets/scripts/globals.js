@@ -106,6 +106,12 @@ var Env = (function () {
     Env.setDebug = function (status) {
         Env.isDebug = status;
     };
+    Env.startLoading = function () {
+        document.documentElement.classList.add('dom-is-loading');
+    };
+    Env.stopLoading = function () {
+        document.documentElement.classList.remove('dom-is-loading');
+    };
     Env.isDebug = true;
     return Env;
 }());
