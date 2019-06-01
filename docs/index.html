@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="assets/styles/widths.css">
         <link rel="stylesheet" href="assets/styles/container.css">
         <link rel="stylesheet" href="assets/styles/wrapper.css">
+        <link rel="stylesheet" href="assets/styles/socket-error-message.css">
 
         <style>
             .c-transition{
@@ -187,20 +188,19 @@
         <!-- Runtime modules -->
         <script src="assets/scripts/runtime.js"></script>
         <script src="assets/scripts/globals.js" async="async"></script>
-        <script src="assets/scripts/npm.uuid.js" async="async"></script>
-        <script src="assets/scripts/npm.pageworks.js" async="async"></script>
-        <script src="assets/scripts/npm.three.js" async="async"></script>
+        <script src="assets/scripts/module.js" async="async"></script>
         <script src="assets/scripts/fengari-web.js" async="async"></script>
         <script src="assets/scripts/inputmanager.js" async="async"></script>
 
         <!-- Modules -->
+        <script src="assets/scripts/socketmanager.js" async="async"></script>
         <script src="assets/scripts/login.js" async="async"></script>
 
             <div class="c-transition">
                 <div class="c-transition_primary"></div>
                 <div class="c-transition_secondary"></div>
             </div>
-            <main id="homepage" role="main" class="js-pjax">
+            <main id="homepage" role="main" class="js-main-view" data-module="SocketManager">
                 <form class="js-startup-form o-form" data-module="Login">
                     <div class="o-form_row u-text-center u-padding-bottom-x2">
                         <h1 class="g-heading -h2">Turtle Trainer</h1>
@@ -226,6 +226,10 @@
                     </div>
                 </form>
             </main>
+            <div class="js-socket-error-message g-socket-error-message">
+                <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="exclamation-triangle" class="svg-inline--fa fa-exclamation-triangle fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M248.747 204.705l6.588 112c.373 6.343 5.626 11.295 11.979 11.295h41.37a12 12 0 0 0 11.979-11.295l6.588-112c.405-6.893-5.075-12.705-11.979-12.705h-54.547c-6.903 0-12.383 5.812-11.978 12.705zM330 384c0 23.196-18.804 42-42 42s-42-18.804-42-42 18.804-42 42-42 42 18.804 42 42zm-.423-360.015c-18.433-31.951-64.687-32.009-83.154 0L6.477 440.013C-11.945 471.946 11.118 512 48.054 512H527.94c36.865 0 60.035-39.993 41.577-71.987L329.577 23.985zM53.191 455.002L282.803 57.008c2.309-4.002 8.085-4.002 10.394 0l229.612 397.993c2.308 4-.579 8.998-5.197 8.998H58.388c-4.617.001-7.504-4.997-5.197-8.997z"></path></svg>
+                <span>Server connection could not be established. Try refreshing the page or checking back later.</span>
+            </div>
             <script src="assets/scripts/application.js"></script>
     </body>
 </html>

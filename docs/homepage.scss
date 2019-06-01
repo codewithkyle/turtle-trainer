@@ -20,6 +20,13 @@
         grid-template-rows: 1fr;
         gap: $unit;
         box-shadow: $elevation-1;
+
+        .o-form_row{
+            button{
+                height: 52px;
+                height: 52px;
+            }
+        }
     }
 
     #input-split{
