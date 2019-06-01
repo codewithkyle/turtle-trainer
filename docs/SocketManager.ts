@@ -40,6 +40,11 @@ export class SocketManager extends Module{
         }
     }
 
+    /**
+     * Constructs a promise around the Socket.io connection method.
+     * Resolves when the connection is established.
+     * Rejects when the connection errors or times out.
+     */
     private connect():any{
         return new Promise((resolve, reject)=>{
             this._socket = io.connect(`${ SocketManager.SERVER }:${ SocketManager.PORT }`);
