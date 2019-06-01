@@ -6,8 +6,8 @@ import * as io from 'socket.io-client';
 export class SocketManager extends Module{
     public static index:string = 'SocketManager';
 
-    private static readonly SERVER:string = '134.209.117.116';
-    private static readonly PORT:string = '6502';
+    private static readonly SERVER:string = '206.189.238.176';
+    private static readonly PORT:string = '3000';
 
     /** Socket */
     private static _socket: SocketIO.Socket;
