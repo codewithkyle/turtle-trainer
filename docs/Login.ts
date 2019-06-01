@@ -1,6 +1,11 @@
 import { Module } from 'Module';
 import { Application } from 'Application';
 import { Env } from 'Env';
+import { SocketManager } from './SocketManager';
+
+interface IRoomCreationResponse{
+    token: string;
+}
 
 export class Login extends Module{
     public static index:string = 'Login';
@@ -30,16 +35,18 @@ export class Login extends Module{
         this._loginButton.classList.remove('is-visible');
     }
 
+    private roomResponse(data:IRoomCreationResponse):void{
+        console.log(`Server responded with the room token ${ data.token }`);
+    }
+
     private handleSubmit:EventListener = (e:Event)=>{
         e.preventDefault();
 
         if(this._tokenInput.value !== ''){
             Env.startLoading();
-            console.warn('Server connection not yet implemented');
-            // TODO server stuffs with token
-            setTimeout(()=>{
-                this.handleError();
-            }, 500);
+            SocketManager.emit('joinRoom', { token: this._tokenInput.value });
+        }else{
+            this.handleError();
         }
     }
 
@@ -53,7 +60,9 @@ export class Login extends Module{
 
     private createNewRoom:EventListener = (e:Event)=>{
         e.preventDefault();
-        console.warn('Room creation not yet implemented');
+        if(SocketManager.emit('createRoom')){
+            SocketManager.recieve('roomCreated', this.roomResponse);
+        }
     }
 
     afterMount(){
