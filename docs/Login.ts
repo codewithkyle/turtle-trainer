@@ -2,9 +2,16 @@ import { Module } from 'Module';
 import { Application } from 'Application';
 import { Env } from 'Env';
 import { SocketManager } from './SocketManager';
+import { Client } from './Client';
 
 interface IRoomCreationResponse{
     token: string;
+}
+
+interface IRoomJoinResponse{
+    token?: string;
+    success: boolean;
+    error?: string;
 }
 
 export class Login extends Module{
@@ -35,8 +42,25 @@ export class Login extends Module{
         this._loginButton.classList.remove('is-visible');
     }
 
-    private roomResponse(data:IRoomCreationResponse):void{
-        console.log(`Server responded with the room token ${ data.token }`);
+    private roomCreationResponse(data:IRoomCreationResponse):void{
+        Env.stopLoading();
+        if(Env.isDebug){
+            console.log(`Server responded with the room token ${ data.token }`);
+        }
+        new Client(data.token);
+    }
+
+    private roomJoinResponse(data:IRoomJoinResponse):void{
+        Env.stopLoading();
+        if(data.success && data.token){
+            new Client(data.token);
+        }else{
+            if(data.error){
+                if(Env.isDebug){
+                    console.error('Server responded with:', data.error);
+                }
+            }
+        }
     }
 
     private handleSubmit:EventListener = (e:Event)=>{
@@ -45,6 +69,7 @@ export class Login extends Module{
         if(this._tokenInput.value !== ''){
             Env.startLoading();
             SocketManager.emit('joinRoom', { token: this._tokenInput.value });
+            SocketManager.recieve('roomResponse', this.roomJoinResponse);
         }else{
             this.handleError();
         }
@@ -60,8 +85,9 @@ export class Login extends Module{
 
     private createNewRoom:EventListener = (e:Event)=>{
         e.preventDefault();
+        Env.startLoading();
         if(SocketManager.emit('createRoom')){
-            SocketManager.recieve('roomCreated', this.roomResponse);
+            SocketManager.recieve('roomCreated', this.roomCreationResponse);
         }
     }
 

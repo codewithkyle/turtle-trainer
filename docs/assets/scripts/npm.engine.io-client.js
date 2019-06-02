@@ -1,10 +1,10 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[19],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[20],{
 
-/***/ 29:
+/***/ 30:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-module.exports = __webpack_require__(30);
+module.exports = __webpack_require__(31);
 
 /**
  * Exports parser
@@ -12,25 +12,25 @@ module.exports = __webpack_require__(30);
  * @api public
  *
  */
-module.exports.parser = __webpack_require__(37);
+module.exports.parser = __webpack_require__(38);
 
 
 /***/ }),
 
-/***/ 30:
+/***/ 31:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
  * Module dependencies.
  */
 
-var transports = __webpack_require__(31);
-var Emitter = __webpack_require__(46);
-var debug = __webpack_require__(50)('engine.io-client:socket');
-var index = __webpack_require__(55);
-var parser = __webpack_require__(37);
-var parseuri = __webpack_require__(11);
-var parseqs = __webpack_require__(47);
+var transports = __webpack_require__(32);
+var Emitter = __webpack_require__(47);
+var debug = __webpack_require__(51)('engine.io-client:socket');
+var index = __webpack_require__(56);
+var parser = __webpack_require__(38);
+var parseuri = __webpack_require__(12);
+var parseqs = __webpack_require__(48);
 
 /**
  * Module exports.
@@ -165,9 +165,9 @@ Socket.protocol = parser.protocol; // this is an int
  */
 
 Socket.Socket = Socket;
-Socket.Transport = __webpack_require__(36);
-Socket.transports = __webpack_require__(31);
-Socket.parser = __webpack_require__(37);
+Socket.Transport = __webpack_require__(37);
+Socket.transports = __webpack_require__(32);
+Socket.parser = __webpack_require__(38);
 
 /**
  * Creates transport of the given type.
@@ -770,17 +770,17 @@ Socket.prototype.filterUpgrades = function (upgrades) {
 
 /***/ }),
 
-/***/ 31:
+/***/ 32:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
  * Module dependencies
  */
 
-var XMLHttpRequest = __webpack_require__(32);
-var XHR = __webpack_require__(34);
-var JSONP = __webpack_require__(52);
-var websocket = __webpack_require__(53);
+var XMLHttpRequest = __webpack_require__(33);
+var XHR = __webpack_require__(35);
+var JSONP = __webpack_require__(53);
+var websocket = __webpack_require__(54);
 
 /**
  * Export transports.
@@ -830,12 +830,12 @@ function polling (opts) {
 
 /***/ }),
 
-/***/ 32:
+/***/ 33:
 /***/ (function(module, exports, __webpack_require__) {
 
 // browser shim for xmlhttprequest module
 
-var hasCORS = __webpack_require__(33);
+var hasCORS = __webpack_require__(34);
 
 module.exports = function (opts) {
   var xdomain = opts.xdomain;
@@ -874,7 +874,7 @@ module.exports = function (opts) {
 
 /***/ }),
 
-/***/ 34:
+/***/ 35:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* global attachEvent */
@@ -883,11 +883,11 @@ module.exports = function (opts) {
  * Module requirements.
  */
 
-var XMLHttpRequest = __webpack_require__(32);
-var Polling = __webpack_require__(35);
-var Emitter = __webpack_require__(46);
-var inherit = __webpack_require__(48);
-var debug = __webpack_require__(50)('engine.io-client:polling-xhr');
+var XMLHttpRequest = __webpack_require__(33);
+var Polling = __webpack_require__(36);
+var Emitter = __webpack_require__(47);
+var inherit = __webpack_require__(49);
+var debug = __webpack_require__(51)('engine.io-client:polling-xhr');
 
 /**
  * Module exports.
@@ -1296,19 +1296,19 @@ function unloadHandler () {
 
 /***/ }),
 
-/***/ 35:
+/***/ 36:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
  * Module dependencies.
  */
 
-var Transport = __webpack_require__(36);
-var parseqs = __webpack_require__(47);
-var parser = __webpack_require__(37);
-var inherit = __webpack_require__(48);
-var yeast = __webpack_require__(49);
-var debug = __webpack_require__(50)('engine.io-client:polling');
+var Transport = __webpack_require__(37);
+var parseqs = __webpack_require__(48);
+var parser = __webpack_require__(38);
+var inherit = __webpack_require__(49);
+var yeast = __webpack_require__(50);
+var debug = __webpack_require__(51)('engine.io-client:polling');
 
 /**
  * Module exports.
@@ -1321,7 +1321,7 @@ module.exports = Polling;
  */
 
 var hasXHR2 = (function () {
-  var XMLHttpRequest = __webpack_require__(32);
+  var XMLHttpRequest = __webpack_require__(33);
   var xhr = new XMLHttpRequest({ xdomain: false });
   return null != xhr.responseType;
 })();
@@ -1548,15 +1548,15 @@ Polling.prototype.uri = function () {
 
 /***/ }),
 
-/***/ 36:
+/***/ 37:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
  * Module dependencies.
  */
 
-var parser = __webpack_require__(37);
-var Emitter = __webpack_require__(46);
+var parser = __webpack_require__(38);
+var Emitter = __webpack_require__(47);
 
 /**
  * Module exports.
@@ -1715,7 +1715,7 @@ Transport.prototype.onClose = function () {
 
 /***/ }),
 
-/***/ 46:
+/***/ 47:
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -1885,7 +1885,7 @@ Emitter.prototype.hasListeners = function(event){
 
 /***/ }),
 
-/***/ 50:
+/***/ 51:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -1894,7 +1894,7 @@ Emitter.prototype.hasListeners = function(event){
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = __webpack_require__(51);
+exports = module.exports = __webpack_require__(52);
 exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
@@ -2084,11 +2084,11 @@ function localstorage() {
   } catch (e) {}
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(13)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(14)))
 
 /***/ }),
 
-/***/ 51:
+/***/ 52:
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -2104,7 +2104,7 @@ exports.coerce = coerce;
 exports.disable = disable;
 exports.enable = enable;
 exports.enabled = enabled;
-exports.humanize = __webpack_require__(15);
+exports.humanize = __webpack_require__(16);
 
 /**
  * Active `debug` instances.
@@ -2320,15 +2320,15 @@ function coerce(val) {
 
 /***/ }),
 
-/***/ 52:
+/***/ 53:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
  * Module requirements.
  */
 
-var Polling = __webpack_require__(35);
-var inherit = __webpack_require__(48);
+var Polling = __webpack_require__(36);
+var inherit = __webpack_require__(49);
 
 /**
  * Module exports.
@@ -2563,23 +2563,23 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
   }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(24)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(25)))
 
 /***/ }),
 
-/***/ 53:
+/***/ 54:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/**
  * Module dependencies.
  */
 
-var Transport = __webpack_require__(36);
-var parser = __webpack_require__(37);
-var parseqs = __webpack_require__(47);
-var inherit = __webpack_require__(48);
-var yeast = __webpack_require__(49);
-var debug = __webpack_require__(50)('engine.io-client:websocket');
+var Transport = __webpack_require__(37);
+var parser = __webpack_require__(38);
+var parseqs = __webpack_require__(48);
+var inherit = __webpack_require__(49);
+var yeast = __webpack_require__(50);
+var debug = __webpack_require__(51)('engine.io-client:websocket');
 
 var BrowserWebSocket, NodeWebSocket;
 
@@ -2589,7 +2589,7 @@ if (typeof WebSocket !== 'undefined') {
   BrowserWebSocket = self.WebSocket || self.MozWebSocket;
 } else {
   try {
-    NodeWebSocket = __webpack_require__(54);
+    NodeWebSocket = __webpack_require__(55);
   } catch (e) { }
 }
 
@@ -2864,7 +2864,7 @@ WS.prototype.check = function () {
   return !!WebSocketImpl && !('__initialize' in WebSocketImpl && this.name === WS.prototype.name);
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(23).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(24).Buffer))
 
 /***/ })
 

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[9],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
 
 /***/ 10:
 /***/ (function(module, exports, __webpack_require__) {
@@ -8,8 +8,109 @@
  * Module dependencies.
  */
 
-var parseuri = __webpack_require__(11);
-var debug = __webpack_require__(12)('socket.io-client:url');
+var url = __webpack_require__(11);
+var parser = __webpack_require__(17);
+var Manager = __webpack_require__(29);
+var debug = __webpack_require__(13)('socket.io-client');
+
+/**
+ * Module exports.
+ */
+
+module.exports = exports = lookup;
+
+/**
+ * Managers cache.
+ */
+
+var cache = exports.managers = {};
+
+/**
+ * Looks up an existing `Manager` for multiplexing.
+ * If the user summons:
+ *
+ *   `io('http://localhost/a');`
+ *   `io('http://localhost/b');`
+ *
+ * We reuse the existing instance based on same scheme/port/host,
+ * and we initialize sockets for each namespace.
+ *
+ * @api public
+ */
+
+function lookup (uri, opts) {
+  if (typeof uri === 'object') {
+    opts = uri;
+    uri = undefined;
+  }
+
+  opts = opts || {};
+
+  var parsed = url(uri);
+  var source = parsed.source;
+  var id = parsed.id;
+  var path = parsed.path;
+  var sameNamespace = cache[id] && path in cache[id].nsps;
+  var newConnection = opts.forceNew || opts['force new connection'] ||
+                      false === opts.multiplex || sameNamespace;
+
+  var io;
+
+  if (newConnection) {
+    debug('ignoring socket cache for %s', source);
+    io = Manager(source, opts);
+  } else {
+    if (!cache[id]) {
+      debug('new io instance for %s', source);
+      cache[id] = Manager(source, opts);
+    }
+    io = cache[id];
+  }
+  if (parsed.query && !opts.query) {
+    opts.query = parsed.query;
+  }
+  return io.socket(parsed.path, opts);
+}
+
+/**
+ * Protocol version.
+ *
+ * @api public
+ */
+
+exports.protocol = parser.protocol;
+
+/**
+ * `connect`.
+ *
+ * @param {String} uri
+ * @api public
+ */
+
+exports.connect = lookup;
+
+/**
+ * Expose constructors for standalone build.
+ *
+ * @api public
+ */
+
+exports.Manager = __webpack_require__(29);
+exports.Socket = __webpack_require__(57);
+
+
+/***/ }),
+
+/***/ 11:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/**
+ * Module dependencies.
+ */
+
+var parseuri = __webpack_require__(12);
+var debug = __webpack_require__(13)('socket.io-client:url');
 
 /**
  * Module exports.
@@ -82,7 +183,7 @@ function url (uri, loc) {
 
 /***/ }),
 
-/***/ 12:
+/***/ 13:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -91,7 +192,7 @@ function url (uri, loc) {
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = __webpack_require__(14);
+exports = module.exports = __webpack_require__(15);
 exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
@@ -281,11 +382,11 @@ function localstorage() {
   } catch (e) {}
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(13)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(14)))
 
 /***/ }),
 
-/***/ 14:
+/***/ 15:
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -301,7 +402,7 @@ exports.coerce = coerce;
 exports.disable = disable;
 exports.enable = enable;
 exports.enabled = enabled;
-exports.humanize = __webpack_require__(15);
+exports.humanize = __webpack_require__(16);
 
 /**
  * Active `debug` instances.
@@ -517,7 +618,7 @@ function coerce(val) {
 
 /***/ }),
 
-/***/ 28:
+/***/ 29:
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -525,15 +626,15 @@ function coerce(val) {
  * Module dependencies.
  */
 
-var eio = __webpack_require__(29);
-var Socket = __webpack_require__(56);
-var Emitter = __webpack_require__(57);
-var parser = __webpack_require__(16);
-var on = __webpack_require__(59);
-var bind = __webpack_require__(60);
-var debug = __webpack_require__(12)('socket.io-client:manager');
-var indexOf = __webpack_require__(55);
-var Backoff = __webpack_require__(61);
+var eio = __webpack_require__(30);
+var Socket = __webpack_require__(57);
+var Emitter = __webpack_require__(58);
+var parser = __webpack_require__(17);
+var on = __webpack_require__(60);
+var bind = __webpack_require__(61);
+var debug = __webpack_require__(13)('socket.io-client:manager');
+var indexOf = __webpack_require__(56);
+var Backoff = __webpack_require__(62);
 
 /**
  * IE6+ hasOwnProperty
@@ -1097,7 +1198,7 @@ Manager.prototype.onreconnect = function () {
 
 /***/ }),
 
-/***/ 56:
+/***/ 57:
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -1105,14 +1206,14 @@ Manager.prototype.onreconnect = function () {
  * Module dependencies.
  */
 
-var parser = __webpack_require__(16);
-var Emitter = __webpack_require__(57);
-var toArray = __webpack_require__(58);
-var on = __webpack_require__(59);
-var bind = __webpack_require__(60);
-var debug = __webpack_require__(12)('socket.io-client:socket');
-var parseqs = __webpack_require__(47);
-var hasBin = __webpack_require__(39);
+var parser = __webpack_require__(17);
+var Emitter = __webpack_require__(58);
+var toArray = __webpack_require__(59);
+var on = __webpack_require__(60);
+var bind = __webpack_require__(61);
+var debug = __webpack_require__(13)('socket.io-client:socket');
+var parseqs = __webpack_require__(48);
+var hasBin = __webpack_require__(40);
 
 /**
  * Module exports.
@@ -1542,7 +1643,7 @@ Socket.prototype.binary = function (binary) {
 
 /***/ }),
 
-/***/ 57:
+/***/ 58:
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -1712,7 +1813,7 @@ Emitter.prototype.hasListeners = function(event){
 
 /***/ }),
 
-/***/ 59:
+/***/ 60:
 /***/ (function(module, exports) {
 
 
@@ -1739,107 +1840,6 @@ function on (obj, ev, fn) {
     }
   };
 }
-
-
-/***/ }),
-
-/***/ 9:
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/**
- * Module dependencies.
- */
-
-var url = __webpack_require__(10);
-var parser = __webpack_require__(16);
-var Manager = __webpack_require__(28);
-var debug = __webpack_require__(12)('socket.io-client');
-
-/**
- * Module exports.
- */
-
-module.exports = exports = lookup;
-
-/**
- * Managers cache.
- */
-
-var cache = exports.managers = {};
-
-/**
- * Looks up an existing `Manager` for multiplexing.
- * If the user summons:
- *
- *   `io('http://localhost/a');`
- *   `io('http://localhost/b');`
- *
- * We reuse the existing instance based on same scheme/port/host,
- * and we initialize sockets for each namespace.
- *
- * @api public
- */
-
-function lookup (uri, opts) {
-  if (typeof uri === 'object') {
-    opts = uri;
-    uri = undefined;
-  }
-
-  opts = opts || {};
-
-  var parsed = url(uri);
-  var source = parsed.source;
-  var id = parsed.id;
-  var path = parsed.path;
-  var sameNamespace = cache[id] && path in cache[id].nsps;
-  var newConnection = opts.forceNew || opts['force new connection'] ||
-                      false === opts.multiplex || sameNamespace;
-
-  var io;
-
-  if (newConnection) {
-    debug('ignoring socket cache for %s', source);
-    io = Manager(source, opts);
-  } else {
-    if (!cache[id]) {
-      debug('new io instance for %s', source);
-      cache[id] = Manager(source, opts);
-    }
-    io = cache[id];
-  }
-  if (parsed.query && !opts.query) {
-    opts.query = parsed.query;
-  }
-  return io.socket(parsed.path, opts);
-}
-
-/**
- * Protocol version.
- *
- * @api public
- */
-
-exports.protocol = parser.protocol;
-
-/**
- * `connect`.
- *
- * @param {String} uri
- * @api public
- */
-
-exports.connect = lookup;
-
-/**
- * Expose constructors for standalone build.
- *
- * @api public
- */
-
-exports.Manager = __webpack_require__(28);
-exports.Socket = __webpack_require__(56);
 
 
 /***/ })

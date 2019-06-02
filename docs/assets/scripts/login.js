@@ -1,5 +1,6 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],[
-/* 0 */
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[7],[
+/* 0 */,
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18,10 +19,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Module_1 = __webpack_require__(1);
-var Application_1 = __webpack_require__(2);
-var Env_1 = __webpack_require__(3);
-var SocketManager_1 = __webpack_require__(8);
+var Module_1 = __webpack_require__(2);
+var Application_1 = __webpack_require__(3);
+var Env_1 = __webpack_require__(4);
+var SocketManager_1 = __webpack_require__(9);
+var Client_1 = __webpack_require__(0);
 var Login = (function (_super) {
     __extends(Login, _super);
     function Login(view, uuid) {
@@ -31,6 +33,7 @@ var Login = (function (_super) {
             if (_this._tokenInput.value !== '') {
                 Env_1.Env.startLoading();
                 SocketManager_1.SocketManager.emit('joinRoom', { token: _this._tokenInput.value });
+                SocketManager_1.SocketManager.recieve('roomResponse', _this.roomJoinResponse);
             }
             else {
                 _this.handleError();
@@ -46,8 +49,9 @@ var Login = (function (_super) {
         };
         _this.createNewRoom = function (e) {
             e.preventDefault();
+            Env_1.Env.startLoading();
             if (SocketManager_1.SocketManager.emit('createRoom')) {
-                SocketManager_1.SocketManager.recieve('roomCreated', _this.roomResponse);
+                SocketManager_1.SocketManager.recieve('roomCreated', _this.roomCreationResponse);
             }
         };
         if (Env_1.Env.isDebug) {
@@ -66,8 +70,25 @@ var Login = (function (_super) {
         this._tokenInput.classList.add('is-invalid');
         this._loginButton.classList.remove('is-visible');
     };
-    Login.prototype.roomResponse = function (data) {
-        console.log("Server responded with the room token " + data.token);
+    Login.prototype.roomCreationResponse = function (data) {
+        Env_1.Env.stopLoading();
+        if (Env_1.Env.isDebug) {
+            console.log("Server responded with the room token " + data.token);
+        }
+        new Client_1.Client(data.token);
+    };
+    Login.prototype.roomJoinResponse = function (data) {
+        Env_1.Env.stopLoading();
+        if (data.success && data.token) {
+            new Client_1.Client(data.token);
+        }
+        else {
+            if (data.error) {
+                if (Env_1.Env.isDebug) {
+                    console.error('Server responded with:', data.error);
+                }
+            }
+        }
     };
     Login.prototype.afterMount = function () {
         this._loginForm.addEventListener('submit', this.handleSubmit);
@@ -89,4 +110,4 @@ Application_1.Application.mountModules();
 
 
 /***/ })
-],[[0,1,7,8,19,9,13,21,22,24,23,33,25,16,26,14,32,28,20,17,30,18,12,27,10,11,31,15,29,6]]]);
+],[[1,3,8,9,20,10,14,22,23,25,24,34,26,17,27,15,33,29,21,18,31,19,13,28,11,12,32,16,30,6]]]);

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[13],[
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[14],[
 /* 0 */,
 /* 1 */,
 /* 2 */,
@@ -15,7 +15,8 @@
 /* 13 */,
 /* 14 */,
 /* 15 */,
-/* 16 */
+/* 16 */,
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -23,11 +24,11 @@
  * Module dependencies.
  */
 
-var debug = __webpack_require__(17)('socket.io-parser');
-var Emitter = __webpack_require__(19);
-var binary = __webpack_require__(20);
-var isArray = __webpack_require__(21);
-var isBuf = __webpack_require__(22);
+var debug = __webpack_require__(18)('socket.io-parser');
+var Emitter = __webpack_require__(20);
+var binary = __webpack_require__(21);
+var isArray = __webpack_require__(22);
+var isBuf = __webpack_require__(23);
 
 /**
  * Protocol version.
@@ -436,7 +437,7 @@ function error(msg) {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -445,7 +446,7 @@ function error(msg) {
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = __webpack_require__(18);
+exports = module.exports = __webpack_require__(19);
 exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
@@ -635,10 +636,10 @@ function localstorage() {
   } catch (e) {}
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(13)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(14)))
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -654,7 +655,7 @@ exports.coerce = coerce;
 exports.disable = disable;
 exports.enable = enable;
 exports.enabled = enabled;
-exports.humanize = __webpack_require__(15);
+exports.humanize = __webpack_require__(16);
 
 /**
  * Active `debug` instances.
@@ -869,7 +870,7 @@ function coerce(val) {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -1038,7 +1039,7 @@ Emitter.prototype.hasListeners = function(event){
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*global Blob,File*/
@@ -1047,8 +1048,8 @@ Emitter.prototype.hasListeners = function(event){
  * Module requirements
  */
 
-var isArray = __webpack_require__(21);
-var isBuf = __webpack_require__(22);
+var isArray = __webpack_require__(22);
+var isBuf = __webpack_require__(23);
 var toString = Object.prototype.toString;
 var withNativeBlob = typeof Blob === 'function' || (typeof Blob !== 'undefined' && toString.call(Blob) === '[object BlobConstructor]');
 var withNativeFile = typeof File === 'function' || (typeof File !== 'undefined' && toString.call(File) === '[object FileConstructor]');
@@ -1185,7 +1186,7 @@ exports.removeBlobs = function(data, callback) {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -1196,7 +1197,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {
@@ -1220,7 +1221,7 @@ function isBuf(obj) {
           (withNativeArrayBuffer && (obj instanceof ArrayBuffer || isView(obj)));
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(23).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(24).Buffer))
 
 /***/ })
 ]]);

@@ -1,6 +1,6 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[14],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[15],{
 
-/***/ 23:
+/***/ 24:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14,9 +14,9 @@
 
 
 
-var base64 = __webpack_require__(25)
-var ieee754 = __webpack_require__(26)
-var isArray = __webpack_require__(27)
+var base64 = __webpack_require__(26)
+var ieee754 = __webpack_require__(27)
+var isArray = __webpack_require__(28)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -1794,7 +1794,7 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(24)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(25)))
 
 /***/ })
 

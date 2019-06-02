@@ -1,12 +1,31 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[6],{
 
-/***/ 1:
+/***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Application_1 = __webpack_require__(2);
+var Client = (function () {
+    function Client(roomToken) {
+        Client.room = roomToken;
+        console.log(Client.room);
+    }
+    Client.room = null;
+    return Client;
+}());
+exports.Client = Client;
+
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Application_1 = __webpack_require__(3);
 var Module = (function () {
     function Module(view, uuid) {
         this.view = view;
@@ -51,15 +70,15 @@ exports.Module = Module;
 
 /***/ }),
 
-/***/ 2:
+/***/ 3:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Env_1 = __webpack_require__(3);
-var uuid = __webpack_require__(4);
-var device_manager_1 = __webpack_require__(7);
+var Env_1 = __webpack_require__(4);
+var uuid = __webpack_require__(5);
+var device_manager_1 = __webpack_require__(8);
 var Application = (function () {
     function Application() {
         new device_manager_1.default(Env_1.Env.isDebug, true);
@@ -141,7 +160,7 @@ Application.mountModules();
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -174,14 +193,14 @@ new Env();
 
 /***/ }),
 
-/***/ 54:
+/***/ 55:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 8:
+/***/ 9:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -200,10 +219,10 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Module_1 = __webpack_require__(1);
-var Application_1 = __webpack_require__(2);
-var Env_1 = __webpack_require__(3);
-var io = __webpack_require__(9);
+var Module_1 = __webpack_require__(2);
+var Application_1 = __webpack_require__(3);
+var Env_1 = __webpack_require__(4);
+var io = __webpack_require__(10);
 var SocketManager = (function (_super) {
     __extends(SocketManager, _super);
     function SocketManager(view, uuid) {
