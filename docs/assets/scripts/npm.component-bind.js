@@ -1,1 +1,33 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[11],{28:function(module,exports){var slice=[].slice;module.exports=function(obj,fn){if("string"==typeof fn&&(fn=obj[fn]),"function"!=typeof fn)throw new Error("bind() requires a function");var args=slice.call(arguments,2);return function(){return fn.apply(obj,args.concat(slice.call(arguments)))}}}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[32],{
+
+/***/ 60:
+/***/ (function(module, exports) {
+
+/**
+ * Slice reference.
+ */
+
+var slice = [].slice;
+
+/**
+ * Bind `obj` to `fn`.
+ *
+ * @param {Object} obj
+ * @param {Function|String} fn or string
+ * @return {Function}
+ * @api public
+ */
+
+module.exports = function(obj, fn){
+  if ('string' == typeof fn) fn = obj[fn];
+  if ('function' != typeof fn) throw new Error('bind() requires a function');
+  var args = slice.call(arguments, 2);
+  return function(){
+    return fn.apply(obj, args.concat(slice.call(arguments)));
+  }
+};
+
+
+/***/ })
+
+}]);

@@ -6,7 +6,7 @@ import * as io from 'socket.io-client';
 export class SocketManager extends Module{
     public static index:string = 'SocketManager';
 
-    private static readonly SERVER:string = '206.189.238.176';
+    private static readonly SERVER:string = (window.location.hostname.match(/.local/)) ? '127.0.0.1' : '206.189.238.176';
     private static readonly PORT:string = '3000';
 
     /** Socket */
