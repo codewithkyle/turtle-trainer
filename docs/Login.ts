@@ -42,18 +42,46 @@ export class Login extends Module{
         this._loginButton.classList.remove('is-visible');
     }
 
-    private roomCreationResponse(data:IRoomCreationResponse):void{
+    /**
+     * Fetches, modifies, and appends the startup form.
+     * @param firstUser - a `boolean` stating if the user is the first user in the room
+     */
+    private GetStartupForm(firstUser:boolean):void{
+        Env.startLoading();
+        
+        const formSlug = (firstUser) ? 'creation-form' : 'startup-form';
+
+        fetch(`${ window.location.origin }/${ formSlug }.html`)
+        .then(request => request.text())
+        .then(response => {
+            Env.stopLoading();
+            const startupFormWrapper = document.createElement('div');
+            startupFormWrapper.classList.add('o-setup-form');
+            startupFormWrapper.innerHTML = response;
+
+            const main = document.body.querySelector('.js-main-view');
+            main.appendChild(startupFormWrapper);
+            startupFormWrapper.classList.add('is-visible');
+        })
+        .catch(e => { console.error('Something went wrong:', e) });
+    }
+
+    private roomCreationResponse(data:IRoomCreationResponse, scope:Login):void{
         Env.stopLoading();
         if(Env.isDebug){
             console.log(`Server responded with the room token ${ data.token }`);
         }
         new Client(data.token);
+        scope.view.classList.add('is-hidden');
+        scope.GetStartupForm(true);
     }
 
-    private roomJoinResponse(data:IRoomJoinResponse):void{
+    private roomJoinResponse(data:IRoomJoinResponse, scope:Login):void{
         Env.stopLoading();
         if(data.success && data.token){
             new Client(data.token);
+            scope.view.classList.add('is-hidden');
+            scope.GetStartupForm(false);
         }else{
             if(data.error){
                 if(Env.isDebug){
@@ -69,7 +97,7 @@ export class Login extends Module{
         if(this._tokenInput.value !== ''){
             Env.startLoading();
             SocketManager.emit('joinRoom', { token: this._tokenInput.value });
-            SocketManager.recieve('roomResponse', this.roomJoinResponse);
+            SocketManager.recieve('roomResponse', this.roomJoinResponse, this);
         }else{
             this.handleError();
         }
@@ -87,7 +115,7 @@ export class Login extends Module{
         e.preventDefault();
         Env.startLoading();
         if(SocketManager.emit('createRoom')){
-            SocketManager.recieve('roomCreated', this.roomCreationResponse);
+            SocketManager.recieve('roomCreated', this.roomCreationResponse, this);
         }
     }
 

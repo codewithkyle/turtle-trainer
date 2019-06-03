@@ -1,0 +1,55 @@
+@import 'settings';
+@import 'mixins';
+
+.o-setup-form{
+    width: 640px;
+    padding: $unit*2;
+    border-radius: 4px;
+    background-color: $white;
+    box-shadow: $elevation-1;
+    position: absolute;
+    transform: translateY(25px);
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    user-select: none;
+    animation: showModal 300ms 150ms $ease-in forwards;
+
+    &.is-hidden{
+        animation: hideModal 150ms 0ms $ease-sharp forwards;
+    }
+}
+
+@keyframes hideModal{
+    from{
+        transform: translateY(0);
+        opacity: 1;
+        user-select: auto;
+        pointer-events: all;
+        visibility: visible;
+    }
+    to{
+        transform: translateY(-25px);
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        user-select: none;
+    }
+}
+
+@keyframes showModal{
+    from{
+        transform: translateY(25px);
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        user-select: none;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 1;
+        user-select: auto;
+        pointer-events: all;
+        visibility: visible;
+    }
+}

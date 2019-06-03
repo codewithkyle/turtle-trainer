@@ -20,6 +20,11 @@
         grid-template-rows: 1fr;
         gap: $unit;
         box-shadow: $elevation-1;
+        position: absolute;
+
+        &.is-hidden{
+            animation: hideModal 150ms 0ms $ease-sharp forwards;
+        }
 
         .o-form_row{
             button{
@@ -119,4 +124,19 @@
     }
 }
 
-
+@keyframes hideModal{
+    from{
+        transform: translateY(0);
+        opacity: 1;
+        user-select: auto;
+        pointer-events: all;
+        visibility: visible;
+    }
+    to{
+        transform: translateY(-25px);
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        user-select: none;
+    }
+}

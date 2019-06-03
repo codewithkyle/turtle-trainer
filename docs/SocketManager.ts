@@ -27,9 +27,9 @@ export class SocketManager extends Module{
      * @returns `boolean` containing the events success status
      * @example SocketManager.emit('signupResponse', this.handleSignupResponse);
      */
-    public static recieve(eventName:string, callback:Function):boolean{
+    public static recieve(eventName:string, callback:Function, scope:unknown):boolean{
         if(this._socket.connected){
-            this._socket.on(eventName, data => { callback(data) });
+            this._socket.on(eventName, data => { callback(data, scope) });
             return true;
         }
 
