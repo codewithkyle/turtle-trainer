@@ -97,7 +97,7 @@ export class Login extends Module{
         if(this._tokenInput.value !== ''){
             Env.startLoading();
             SocketManager.emit('joinRoom', { token: this._tokenInput.value });
-            SocketManager.recieve('roomResponse', this.roomJoinResponse, this);
+            SocketManager.receive('roomResponse', this.roomJoinResponse, this);
         }else{
             this.handleError();
         }
@@ -115,7 +115,7 @@ export class Login extends Module{
         e.preventDefault();
         Env.startLoading();
         if(SocketManager.emit('createRoom')){
-            SocketManager.recieve('roomCreated', this.roomCreationResponse, this);
+            SocketManager.receive('roomCreated', this.roomCreationResponse, this);
         }
     }
 

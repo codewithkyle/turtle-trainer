@@ -33,7 +33,7 @@ var Login = (function (_super) {
             if (_this._tokenInput.value !== '') {
                 Env_1.Env.startLoading();
                 SocketManager_1.SocketManager.emit('joinRoom', { token: _this._tokenInput.value });
-                SocketManager_1.SocketManager.recieve('roomResponse', _this.roomJoinResponse, _this);
+                SocketManager_1.SocketManager.receive('roomResponse', _this.roomJoinResponse, _this);
             }
             else {
                 _this.handleError();
@@ -51,7 +51,7 @@ var Login = (function (_super) {
             e.preventDefault();
             Env_1.Env.startLoading();
             if (SocketManager_1.SocketManager.emit('createRoom')) {
-                SocketManager_1.SocketManager.recieve('roomCreated', _this.roomCreationResponse, _this);
+                SocketManager_1.SocketManager.receive('roomCreated', _this.roomCreationResponse, _this);
             }
         };
         if (Env_1.Env.isDebug) {

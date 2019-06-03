@@ -231,7 +231,7 @@ var SocketManager = (function (_super) {
         }
         return _this;
     }
-    SocketManager.recieve = function (eventName, callback, scope) {
+    SocketManager.receive = function (eventName, callback, scope) {
         if (this._socket.connected) {
             this._socket.on(eventName, function (data) { callback(data, scope); });
             return true;
