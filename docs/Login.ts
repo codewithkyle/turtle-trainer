@@ -55,13 +55,14 @@ export class Login extends Module{
         .then(request => request.text())
         .then(response => {
             Env.stopLoading();
-            const startupFormWrapper = document.createElement('div');
-            startupFormWrapper.classList.add('o-setup-form');
-            startupFormWrapper.innerHTML = response;
+            const setupForm = document.createElement('div');
+            setupForm.classList.add('o-setup-form');
+            setupForm.innerHTML = response;
 
             const main = document.body.querySelector('.js-main-view');
-            main.appendChild(startupFormWrapper);
-            startupFormWrapper.classList.add('is-visible');
+            main.appendChild(setupForm);
+            setupForm.classList.add('is-visible');
+            Application.createModule('SetupForm', setupForm);
         })
         .catch(e => { console.error('Something went wrong:', e) });
     }

@@ -3,7 +3,6 @@
 
 .o-setup-form{
     width: 640px;
-    padding: $unit*2;
     border-radius: 4px;
     background-color: $white;
     box-shadow: $elevation-1;
@@ -14,9 +13,38 @@
     visibility: hidden;
     user-select: none;
     animation: showModal 300ms 150ms $ease-in forwards;
+    transition: all 150ms $ease;
 
     &.is-hidden{
         animation: hideModal 150ms 0ms $ease-sharp forwards;
+    }
+
+    form-step{
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: $unit*2 $unit*2 68px;
+        visibility: hidden;
+        opacity: 0;
+        user-select: none;
+        pointer-events: none;
+        transition: all 75ms $ease-sharp;
+        width: 100%;
+
+        &.is-visible{
+            visibility: visible;
+            opacity: 1;
+            user-select: auto;
+            pointer-events: all;
+            transition: all 150ms $ease-in;
+        }
+
+        form-controls{
+            position: absolute;
+            bottom: 16px;
+            right: $unit*2;
+        }
     }
 }
 

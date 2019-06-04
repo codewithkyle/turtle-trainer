@@ -1,3 +1,28 @@
-<form>
-    Form
-</form>
+<form-step>
+    <p>Welcome to the Turtle Trainer! Before we can start you'll need to take a moment to tell us about yourself and your project.</p>
+    <form-controls>
+        <button class="js-next g-button -short -text -blue">Continue</button>
+    </form-controls>
+</form-step>
+<form-step>
+    <p class="u-margin-bottom">Please enter a name that will be displayed any friends you invite to your room.</p>
+    <div class="g-input">
+        <input class="js-input" type="text" name="displayName" id="displayName" required>
+        <label for="displayName">Display Name</label>
+        <error class="js-error"></error>
+    </div>
+    <form-controls>
+        <button class="js-next g-button -short -text -blue">Continue</button>
+    </form-controls>
+</form-step>
+<form-step>
+    <p class="u-margin-bottom">Alright <span class="js-username-hotswap">USERNAME</span>, what's the name of the project that you'll be working on today? We know that this is the hardest and most important part of any project so feel free to take your time.</p>
+    <div class="g-input">
+        <input class="js-input" type="text" name="projectName" id="projectName" required>
+        <label for="projectName">Project Name</label>
+        <error class="js-error"></error>
+    </div>
+    <form-controls>
+        <button class="js-next g-button -short -text -blue">Continue</button>
+    </form-controls>
+</form-step>
