@@ -116,6 +116,8 @@ var Login = (function (_super) {
         this._tokenInput.addEventListener('blur', this.handleInput);
         this._tokenInput.addEventListener('keyup', this.handleInput);
         this._createRoomButton.addEventListener('click', this.createNewRoom);
+        var firstInput = this.view.querySelector('input');
+        firstInput.focus();
     };
     Login.prototype.beforeDestroy = function () {
     };

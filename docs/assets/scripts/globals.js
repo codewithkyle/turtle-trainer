@@ -10,7 +10,14 @@ var Client = (function () {
     function Client(roomToken) {
         Client.room = roomToken;
     }
+    Client.setName = function (clientsName) {
+        this.displayName = clientsName;
+    };
+    Client.getName = function () {
+        return this.displayName;
+    };
     Client.room = null;
+    Client.displayName = 'Tod';
     return Client;
 }());
 exports.Client = Client;

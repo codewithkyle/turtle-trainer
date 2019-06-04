@@ -23,7 +23,7 @@
         position: absolute;
 
         &.is-hidden{
-            animation: hideModal 150ms 0ms $ease-sharp forwards;
+            animation: hideModal 75ms 0ms $ease-sharp forwards;
         }
 
         .o-form_row{

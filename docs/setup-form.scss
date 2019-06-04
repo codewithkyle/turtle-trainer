@@ -12,11 +12,11 @@
     pointer-events: none;
     visibility: hidden;
     user-select: none;
-    animation: showModal 300ms 150ms $ease-in forwards;
+    animation: showModal 150ms 75ms $ease-in forwards;
     transition: all 150ms $ease;
 
     &.is-hidden{
-        animation: hideModal 150ms 0ms $ease-sharp forwards;
+        animation: hideModal 75ms 0ms $ease-sharp forwards;
     }
 
     form-step{
@@ -37,7 +37,7 @@
             opacity: 1;
             user-select: auto;
             pointer-events: all;
-            transition: all 150ms $ease-in;
+            transition: all 150ms 75ms $ease-in;
         }
 
         form-controls{

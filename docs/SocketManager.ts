@@ -24,8 +24,9 @@ export class SocketManager extends Module{
      * Listens for a custom event to be sent from the server. Returns `false` when the socket is not connected to the server.
      * @param eventName - the name of the event the socket will listen for
      * @param callback - the events callback `Function`
+     * @param scope - the class object that called the method
      * @returns `boolean` containing the events success status
-     * @example SocketManager.emit('signupResponse', this.handleSignupResponse);
+     * @example SocketManager.emit('signupResponse', this.handleSignupResponse, this);
      */
     public static receive(eventName:string, callback:Function, scope:unknown):boolean{
         if(this._socket.connected){

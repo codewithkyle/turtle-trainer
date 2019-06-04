@@ -2,6 +2,8 @@ import { Module } from 'Module';
 import { Application } from 'Application';
 import { Env } from 'Env';
 import { InputManager } from 'InputManager';
+import { Client } from './Client';
+import { SocketManager } from './SocketManager';
 
 export class SetupForm extends Module{
     public static index:string = 'SetupForm';
@@ -28,7 +30,22 @@ export class SetupForm extends Module{
         this.view.style.height = `${ newHeight + extraHeight }px`;
     }
 
-    private nextStep:EventListener = ()=>{
+    private updateUsernameHotswaps():void{
+        const hotwapEls:Array<HTMLElement> = Array.from(this.view.querySelectorAll('.js-username-hotswap'));
+
+        for(let i = 0; i < hotwapEls.length; i++){
+            hotwapEls[i].innerHTML = Client.getName();
+        }
+    }
+
+    private nextStep:EventListener = (e:Event)=>{
+
+        if(e instanceof KeyboardEvent){
+            if(e.key.toLowerCase() !== 'enter'){
+                return;
+            }
+        }
+
         const inputs:Array<HTMLInputElement> = Array.from(this._steps[this._currentStepIndex].querySelectorAll('.js-input'));
 
         let hasBlankInput = false;
@@ -45,6 +62,20 @@ export class SetupForm extends Module{
             return;
         }
 
+        switch(this._currentStepIndex){
+            case 1:
+                const username = <HTMLInputElement>this.view.querySelector('input#displayName');
+                Client.setName(username.value);
+                this.updateUsernameHotswaps();
+                SocketManager.emit('updateName', { displayName: username.value });
+                break;
+            default:
+                if(Env.isDebug){
+                    console.warn(`Unknown step #${ this._currentStepIndex }`);
+                }
+                break;
+        }
+
         this._steps[this._currentStepIndex].classList.remove('is-visible');
         this._currentStepIndex++;
         this._steps[this._currentStepIndex].classList.add('is-visible');
@@ -58,6 +89,10 @@ export class SetupForm extends Module{
         for(let i = 0; i < this._nextButtons.length; i++){
             this._nextButtons[i].addEventListener('click', this.nextStep);
         }
+
+        document.addEventListener('keyup', this.nextStep);
+
+        InputManager.reload();
     }
 
     beforeDestroy(){
